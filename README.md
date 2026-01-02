@@ -1,6 +1,6 @@
 # OpenTelemetry `confluent-kafka-javascript` Instrumentation for Node.js
 
-This instrumentation is a **fully-featured** and fully tested Opentelemetry instrumentation for the [`@confluentinc/kafka-javascript`](https://www.npmjs.com/package/@confluentinc/kafka-javascript) package.
+This is a **fully-featured** and fully tested OpenTelemetry instrumentation for the [`@confluentinc/kafka-javascript`](https://www.npmjs.com/package/@confluentinc/kafka-javascript) package.
 
 ```bash
 npm install @instana/instrumentation-confluent-kafka-javascript
