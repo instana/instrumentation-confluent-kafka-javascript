@@ -1,10 +1,5 @@
-import { TextMapGetter } from "@opentelemetry/api";
+import { TextMapGetter, defaultTextMapGetter } from "@opentelemetry/api";
 
-/*
-same as open telemetry's `defaultTextMapGetter`,
-but also handle case where header is buffer,
-adding toString() to make sure string is returned
-*/
 export const bufferTextMapGetter: TextMapGetter = {
   get(carrier, key) {
     if (!carrier) {
@@ -14,8 +9,18 @@ export const bufferTextMapGetter: TextMapGetter = {
     const keys = Object.keys(carrier);
 
     for (const carrierKey of keys) {
-      if (carrierKey === key || carrierKey.toLowerCase() === key) {
-        return carrier[carrierKey]?.toString();
+      if (carrierKey === key || carrierKey.toLowerCase() === key.toLowerCase()) {
+        const value = carrier[carrierKey];
+        if (Buffer.isBuffer(value)) {
+          return value.toString("utf8");
+        }
+        if (typeof value === "string") {
+          return value;
+        }
+        if (value !== undefined && value !== null) {
+          return String(value);
+        }
+        return undefined;
       }
     }
 
@@ -23,6 +28,24 @@ export const bufferTextMapGetter: TextMapGetter = {
   },
 
   keys(carrier) {
-    return carrier ? Object.keys(carrier) : [];
+    if (!carrier) {
+      return [];
+    }
+    return Object.keys(carrier);
+  },
+};
+
+export const stringTextMapGetter: TextMapGetter = {
+  get(carrier, key) {
+    if (!carrier) {
+      return undefined;
+    }
+    return defaultTextMapGetter.get(carrier, key);
+  },
+  keys(carrier) {
+    if (!carrier) {
+      return [];
+    }
+    return defaultTextMapGetter.keys(carrier);
   },
 };

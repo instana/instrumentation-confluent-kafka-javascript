@@ -1,23 +1,25 @@
 {
-  "name": "@drazke/instrumentation-confluent-kafka-javascript",
+  "name": "@instana/instrumentation-confluent-kafka-javascript",
   "version": "1.0.0",
-  "description": "OpenTelemetry instrumentation for `confluent-kafka-javascript` messaging client for Apache Kafka",
-  "main": "lib/src/index.js",
-  "types": "lib/src/index.d.ts",
+  "description": "OpenTelemetry instrumentation for `@confluentinc/kafka-javascript` messaging client for Apache Kafka",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Drazke/instrumentation-confluent-kafka-javascript.git"
+    "url": "https://github.com/instana/instrumentation-confluent-kafka-javascript.git"
   },
   "scripts": {
+    "pretest": "npm run build",
     "test": "nyc mocha --require @opentelemetry/contrib-test-utils 'test/**/*.test.ts'",
     "test-all-versions": "tav",
     "tdd": "npm run test -- --watch-extensions ts --watch",
-    "clean": "rimraf lib/*",
+    "clean": "rimraf lib/* tsconfig.tsbuildinfo",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "prewatch": "npm run prebuild",
     "prepublishOnly": "npm run build",
-    "build": "tsc -p ."
+    "build": "tsc -p .",
+    "prepare": "npm run build"
   },
   "keywords": [
     "@confluentinc/kafka-javascript",
@@ -28,16 +30,13 @@
     "profiling",
     "tracing"
   ],
-  "author": "Drazke",
+  "authors": ["kirrg001", "Drazke"],
   "license": "Apache-2.0",
   "engines": {
     "node": "^18.19.0 || >=20.6.0"
   },
   "files": [
-    "lib/src/**/*.js",
-    "lib/src/**/*.js.map",
-    "lib/src/**/*.d.ts",
-    "lib/*.json"
+    "lib/*.js"
   ],
   "publishConfig": {
     "access": "public"
@@ -59,11 +58,12 @@
     "rimraf": "5.0.10",
     "sinon": "15.2.0",
     "test-all-versions": "6.1.0",
+    "ts-node": "^10.9.2",
     "typescript": "5.0.4"
   },
   "dependencies": {
-    "@opentelemetry/instrumentation": "^0.200.0",
-    "@opentelemetry/semantic-conventions": "^1.30.0"
+    "@opentelemetry/instrumentation": "^0.207.0",
+    "@opentelemetry/semantic-conventions": "^1.34.0"
   },
-  "homepage": "https://github.com/Drazke/instrumentation-confluent-kafka-javascript/tree/main/#readme"
+  "homepage": "https://github.com/instana/instrumentation-confluent-kafka-javascript/tree/main/#readme"
 }

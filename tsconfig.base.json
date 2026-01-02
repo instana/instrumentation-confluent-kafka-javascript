@@ -6,7 +6,7 @@
     "declarationMap": true,
     "esModuleInterop": false,
     "forceConsistentCasingInFileNames": true,
-    "incremental": true,
+    "incremental": false,
     "inlineSources": true,
     "module": "node16",
     "moduleResolution": "node16",
